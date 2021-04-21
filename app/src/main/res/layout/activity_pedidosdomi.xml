@@ -7,7 +7,7 @@
     android:layout_height="wrap_content"
     tools:context=".PedidosActivity">
 
-    <de.codecrafters.tableview.TableView
+    de.codecrafters.tableview.TableView
         android:id="@+id/pedidos"
         android:layout_width="800dp"
         android:layout_height="504dp"

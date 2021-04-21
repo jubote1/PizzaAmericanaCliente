@@ -12,6 +12,11 @@
         android:screenOrientation="landscape"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".IngresarCliente"></activity>
+        <activity
+            android:name=".ConsultaPedidosActivity"
+            android:label="@string/title_activity_consulta_pedidos"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ConfiguracionesActivity"
             android:label="@string/title_activity_configuraciones"
@@ -20,8 +25,8 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.pizzaamericanacliente.MainActivity" />
         </activity>
-        <activity android:name=".PedidosActivity"></activity>
-        <activity android:name=".Pedidos2Activity"></activity>
+        <activity android:name=".PedidosActivity" />
+        <activity android:name=".Pedidos2Activity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -9,20 +9,20 @@
     <android.support.v7.widget.RecyclerView
         android:id="@+id/list_pedidos"
         android:layout_width="699dp"
-        android:layout_height="wrap_content"
+        android:layout_height="536dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="11dp"
         android:layout_marginEnd="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.113"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewEmp"
         tools:listitem="@layout/pedido_list" />
 
     <Button
         android:id="@+id/buttonSalida"
         android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_height="64dp"
         android:layout_marginTop="8dp"
         android:background="@color/colorAccent"
         android:onClick="salidaDomicilios"
@@ -34,7 +34,7 @@
     <Button
         android:id="@+id/buttonLlegada"
         android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_height="66dp"
         android:layout_marginTop="20dp"
         android:background="@color/colorAccent"
         android:onClick="llegadaDomicilios"
@@ -46,7 +46,7 @@
     <Button
         android:id="@+id/buttonDisponible"
         android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_height="46dp"
         android:layout_marginTop="20dp"
         android:background="@color/colorAccent"
         android:onClick="cambioEstadoDomiciliario"
@@ -58,10 +58,54 @@
     <Button
         android:id="@+id/buttonSalir"
         android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_marginTop="20dp"
+        android:layout_height="77dp"
+        android:layout_marginTop="23dp"
         android:onClick="salir"
         android:text="SALIR"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toEndOf="@+id/list_pedidos"
+        app:layout_constraintTop_toBottomOf="@+id/buttonDevolverEstado" />
+
+    <TextView
+        android:id="@+id/textViewEmp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="16dp"
+        android:text="DOMICILIARIO"
+        android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+        app:layout_constraintBottom_toTopOf="@+id/list_pedidos"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txtViewDom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="140dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="380dp"
+        android:text="NOMBRE"
+        android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+        app:layout_constraintBottom_toTopOf="@+id/list_pedidos"
+        app:layout_constraintEnd_toStartOf="@+id/buttonSalida"
+        app:layout_constraintStart_toEndOf="@+id/textViewEmp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <Button
+        android:id="@+id/buttonDevolverEstado"
+        android:layout_width="102dp"
+        android:layout_height="66dp"
+        android:layout_marginStart="63dp"
+        android:layout_marginTop="26dp"
+        android:layout_marginEnd="62dp"
+        android:layout_marginBottom="23dp"
+        android:background="@color/colorAccent"
+        android:onClick="devolverEstado"
+        android:text="DEVOLVER ESTADO"
+        app:layout_constraintBottom_toTopOf="@+id/buttonSalir"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/list_pedidos"
         app:layout_constraintTop_toBottomOf="@+id/buttonDisponible" />

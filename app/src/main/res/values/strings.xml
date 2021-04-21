@@ -79,4 +79,6 @@
     <string name="title_notifications">Notifications</string>
     <string name="pref_title_ip_address">Ingrese IP POS Pizza Americana</string>
     <string name="pref_default_ip_address">192.168.1.59</string>
+    <string name="title_activity_consulta_pedidos">ConsultaPedidosActivity</string>
+    <string name="pref_title_ip_address_contact">pref_title_ip_address_contact</string>
 </resources>

@@ -1,12 +1,22 @@
 package com.example.pizzaamericanacliente.Servicio;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.text.InputType;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ProgressBar;
 
+import com.example.pizzaamericanacliente.MainActivity;
 import com.example.pizzaamericanacliente.Pedidos2Activity;
 import com.example.pizzaamericanacliente.PedidosActivity;
+import com.example.pizzaamericanacliente.R;
 import com.example.pizzaamericanacliente.modelo.Usuario;
 
 import org.json.JSONObject;
@@ -21,6 +31,7 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLConnection;
 import java.net.URLEncoder;
 
 /**
@@ -29,65 +40,31 @@ import java.net.URLEncoder;
 
 public class BackgroundLogueo extends AsyncTask <String, Void,String> {
 
-    AlertDialog dialog;
+    AlertDialog.Builder dialog;
     Context context;
+    View rootView;
     public Boolean login = false;
-    public BackgroundLogueo(Context context)
+    public BackgroundLogueo(Context context, View rootView)
     {
         this.context = context;
+        System.out.print("VALOR DEL CONTEXTO " + context);
+        this.rootView = rootView;
+        //progressBar = (ProgressBar) ((Activity) context).findViewById(R.id.progressBarMain);
+        //progressBar = (ProgressBar)ontext.getResources().findViewById(R.id.progressBarMain);
     }
     String urlServicios = "";
 
+
+
     @Override
     protected void onPreExecute() {
-        dialog = new AlertDialog.Builder(context).create();
-        dialog.setTitle("Login Status");
+
+        dialog = new AlertDialog.Builder(context);
+        dialog.setTitle("ESTADO DE LOGUEO");
     }
     @Override
     protected void onPostExecute(String s) {
 
-        int idUsuario = 0;
-        String nombreUsuario;
-        String contrasena;
-        String nombreLargo = "";
-        int idTipoEmpleado = 0;
-        String tipoInicio;
-        boolean administrador;
-        int estadoDomiciliario;
-        Usuario usuario = new Usuario(0,"", "", "", 0,"", false);
-        try
-        {
-            JSONObject jobjt = new JSONObject(s);
-            idUsuario = jobjt.getInt("idusuario");
-            nombreUsuario = jobjt.getString("nombreusuario");
-            nombreLargo = jobjt.getString("nombrelargo");
-            idTipoEmpleado = jobjt.getInt("idtipoempleado");
-            tipoInicio = jobjt.getString("tipoinicio");
-            administrador = jobjt.getBoolean("administrador");
-            estadoDomiciliario = jobjt.getInt("estadodomiciliario");
-            usuario = new Usuario(idUsuario, nombreUsuario, "", nombreLargo, idTipoEmpleado, tipoInicio, administrador);
-            usuario.setEstadoDomiciliario(estadoDomiciliario);
-        }catch(Exception e)
-        {
-            System.out.println("ERROR PARSEANDO EL JSON " + e.toString());
-        }
-
-        if(!nombreLargo.isEmpty())
-        {
-            dialog.setMessage("BIENVENIDO AL SISTEMA " + nombreLargo);
-            dialog.show();
-            Intent intent_name = new Intent();
-            //Pasamos como parámetro serializado el objeto Usuario con la información del usuario logueado
-            intent_name.putExtra("usuario", usuario);
-            intent_name.putExtra("urlServicios", urlServicios);
-            intent_name.setClass(context.getApplicationContext(), Pedidos2Activity.class);
-            context.startActivity(intent_name);
-        }
-        else
-        {
-            dialog.setMessage("USUARIO Y/O CONTRASEÑA INVÁLIDOS ");
-            dialog.show();
-        }
     }
     @Override
     protected String doInBackground(String... voids) {
@@ -95,7 +72,14 @@ public class BackgroundLogueo extends AsyncTask <String, Void,String> {
         String claveRapida = voids[0];
         urlServicios = voids[1];
         String connstr = "http://" +urlServicios+"/ProyectoTiendaAmericana/ValidarIngreso";
-
+        //Validamos la conexión al servidor
+        String urlPrueba = "http://" +urlServicios+"/ProyectoTiendaAmericana/Index.html";
+        int timeout = 5000;
+        boolean hayConexion =  isConnectedToServer(urlPrueba, timeout);
+        if(!hayConexion)
+        {
+            return("FALSE CONEXION");
+        }
         try {
             URL url = new URL(connstr);
             HttpURLConnection http = (HttpURLConnection) url.openConnection();
@@ -132,4 +116,20 @@ public class BackgroundLogueo extends AsyncTask <String, Void,String> {
 
         return result;
     }
+
+    //Método que nos ayudará a verificar la conexión y con esto saber si hay conexión o no  descargar rápido
+    public boolean isConnectedToServer(String url, int timeout) {
+        try{
+            URL myUrl = new URL(url);
+            URLConnection connection = myUrl.openConnection();
+            connection.setConnectTimeout(timeout);
+            connection.connect();
+            return true;
+        } catch (Exception e) {
+            // Handle your exceptions
+            return false;
+        }
+    }
+
+
 }

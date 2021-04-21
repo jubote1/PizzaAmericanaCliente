@@ -1,7 +1,9 @@
 package com.example.pizzaamericanacliente.Adaptador;
 
+import android.app.AlertDialog;
 import android.content.ClipData;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.support.annotation.NonNull;
@@ -21,12 +23,14 @@ public class PedidosAdapter extends RecyclerView.Adapter<PedidosAdapter.ViewHold
 
     private Context context;
     public ArrayList<Pedido> listPedidos;
+    public int contadorSeleccionados;
     private final LayoutInflater mlayoutInflater;
 
     public PedidosAdapter(Context conte, ArrayList<Pedido> listPedidos) {
         context = conte;
         mlayoutInflater = LayoutInflater.from(context);
         this.listPedidos = listPedidos;
+        contadorSeleccionados = 0;
     }
 
 
@@ -51,6 +55,32 @@ public class PedidosAdapter extends RecyclerView.Adapter<PedidosAdapter.ViewHold
                                                        viewHolder.itemView.setBackgroundColor(pedTemp.isSelected() ? Color.YELLOW : Color.WHITE);
                                                        viewHolder.textInfoPedido.setBackgroundColor(pedTemp.isSelected() ? Color.YELLOW : Color.WHITE);
                                                        viewHolder.textIdPedido.setBackgroundColor(pedTemp.isSelected() ? Color.YELLOW : Color.WHITE);
+                                                       //Controlamos si la selección deja el pedido seleccionado
+                                                       if(pedTemp.isSelected())
+                                                       {
+                                                           contadorSeleccionados++;
+                                                           //Validamos si el pedido tiene valor en el campo observación
+                                                           if(!pedTemp.getObservacion().equals(new String("0")))
+                                                           {
+                                                               //Creamos el Alert para llamar la atención del domiciliario que va a
+                                                               //llevar el pedido
+                                                               AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);
+                                                               alertDialog.setTitle("ALERTA PARA EL PEDIDO");
+                                                               alertDialog.setMessage(pedTemp.getObservacion());
+                                                               alertDialog.setPositiveButton("ACEPTAR", new DialogInterface.OnClickListener() {
+                                                                   @Override
+                                                                   public void onClick(DialogInterface dialog, int which) {
+                                                                       dialog.cancel();
+                                                                   }
+                                                               });
+                                                               AlertDialog dialog = alertDialog.create();
+                                                               dialog.show();
+                                                           }
+                                                       }
+                                                       else
+                                                       {
+                                                           contadorSeleccionados--;
+                                                       }
                                                    }
                                                }
         );

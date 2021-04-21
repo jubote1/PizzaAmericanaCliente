@@ -1,15 +1,11 @@
 package com.example.pizzaamericanacliente;
 
 import android.app.AlertDialog;
-import android.content.Context;
-import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.example.pizzaamericanacliente.Servicio.BackgroundLogueo;
 import com.example.pizzaamericanacliente.Servicio.BackgroundPedidos;
 import com.example.pizzaamericanacliente.modelo.Usuario;
 
@@ -45,7 +41,7 @@ public class PedidosActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_pedidos);
+        setContentView(R.layout.activity_pedidosdomi);
 
         //Obtenemos el TableView donde dejaremos la información retornada de los pedidos
         tb = (TableView<String[]>)findViewById(R.id.pedidos);
